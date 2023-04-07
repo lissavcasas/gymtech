@@ -14,7 +14,20 @@
         </section>
 
         <div class="table-responsive mt-5">
-        <div class="container" th:if="${clientes != null   and   !clientes.empty }"     >
+            <div class="container" th:if="${clientes != null   and   !clientes.empty }"     >
+
+                <form class="form-inline " th:action="@{/}">
+                    <div class="form-group mb-2">
+                        <label>Filtrar:</label> 
+                    </div>
+
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" name="palabra" class="form-control" id="palabra" th:value="${palabra}" placeholder="Digite el valor a filtrar" required>   
+                    </div>
+
+                    <input type="submit" class=" btn btn-warning mb-2" th:value="#{cliente.filtro}"> &nbsp
+                        <a th:href="@{/}" class="btn btn-secondary mb-2" th:text="#{cliente.limpiar}"    > Inicio </a>
+                </form>
                 <table  class="table" border="1"  >
                     <thead class="table-dark">
                         <tr>
@@ -54,7 +67,7 @@
                     </tbody>
 
                 </table>
-        </div> </div>
+            </div> </div>
         <div  th:if="${clientes == null  or clientes.empty }"   >
             [[#{cliente.lista-vacia}]]
         </div>

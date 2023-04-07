@@ -12,7 +12,7 @@
             <div  class="container my-3 text-white">
                 <div class="row">
                     <div  class="col-12"    sec:authorize="hasRole('ROLE_ADMIN')"   >
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" class="btn btn-info float-right"   > 
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" class="btn btn-info float-left ml-5 m-3"   > 
                            <i class="fas fa-plus" > </i> 
                             [[#{cliente.nuevo}]]   
                         </a>

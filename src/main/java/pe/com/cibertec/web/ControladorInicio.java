@@ -3,6 +3,7 @@ package pe.com.cibertec.web;
 import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +21,7 @@ public class ControladorInicio {
     private ClienteService clienteService;
 
     @GetMapping("/")
-    public String inicio(Model model, @AuthenticationPrincipal User user) {
+    public String inicio(Model model,@Param("palabra")String palabra, @AuthenticationPrincipal User user) {
         Collection<? extends GrantedAuthority> currentUserRoles = user.getAuthorities();
         log.info("User rol:" + currentUserRoles);
         boolean isAdmin = currentUserRoles.stream()
@@ -34,8 +35,11 @@ public class ControladorInicio {
             model.addAttribute("mostrarBoton", false);
         }
 
-        var clientes = clienteService.listarClientes();
+        
+        var clientes = clienteService.listarClientes(palabra);
+        
         model.addAttribute("clientes", clientes);
+        model.addAttribute("palabra",palabra);
         return "clientes";
     }
 
