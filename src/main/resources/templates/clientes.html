@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+    <head th:replace="layout/plantilla :: head"   >
+        <title>Inicio</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"          ></header>
+        <section   th:replace="layout/botonesAgregar :: a"  >
+        </section>
+
+        <div class="table-responsive mt-5">
+        <div class="container" th:if="${clientes != null   and   !clientes.empty }"     >
+                <table  class="table" border="1"  >
+                    <thead class="table-dark">
+                        <tr>
+                            <th>[[#{cliente.id}]]</th>   
+                            <th>[[#{cliente.nombre}]]</th>  
+                            <th>[[#{cliente.ape-pat}]]</th>  
+                            <th>[[#{cliente.ape-mat}]]</th>  
+                            <th>[[#{cliente.dni}]]</th>  
+                            <th>[[#{cliente.direccion}]]</th>  
+                            <th>[[#{cliente.distrito}]]</th>  
+                            <th>[[#{cliente.telefono}]]</th>  
+                            <th>[[#{cliente.email}]]</th>  
+                            <th>[[#{cliente.fecha-nacimiento}]]</th> 
+                            <th>[[#{cliente.sexo}]]</th> 
+                            <th>[[#{cliente.rol}]]</th> 
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" >[[#{accion.editar}]] </th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" >[[#{accion.eliminar}]] </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr   th:each="cliente:${clientes}" >  
+                            <td  th:text="${cliente.ideCli}" >Mostrar Id</td>
+                            <td  th:text="${cliente.nomCli}" >Mostrar Nombre Completo</td>
+                            <td  th:text="${cliente.apePat}" >Mostrar Apellido Paterno</td>
+                            <td  th:text="${cliente.apeMat}" >Mostrar Apellido Materno</td>
+                            <td th:text="${cliente.dniCli}" >Mostrar DNI</td>
+                            <td  th:text="${cliente.dirCli}" >Mostrar Direccion</td>
+                            <td th:text="${cliente.ideDis}"  >Mostrar Distrito</td>
+                            <td th:text="${cliente.telCli}"  >Mostrar Telefono</td>
+                            <td th:text="${cliente.emaCli}"  >Mostrar Email</td>
+                            <td th:text="${cliente.fechaNac}"  >Mostrar Fecha de nacimiento</td>
+                            <td th:text="${cliente.sexo}"  >Mostrar sexo Nac</td>
+                            <td th:text="${cliente.rolCli}"  >Mostrar rolCli</td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" > <a th:href="@{/editar/} + ${cliente.ideCli} "       /> [[#{accion.editar}]]   </td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" > <a th:href="@{/eliminar/} + ${cliente.ideCli} "         /> [[#{accion.eliminar}]]   </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+        </div> </div>
+        <div  th:if="${clientes == null  or clientes.empty }"   >
+            [[#{cliente.lista-vacia}]]
+        </div>
+        <footer th:replace="layout/plantilla :: footer"          ></footer>
+    </body>
+</html>
