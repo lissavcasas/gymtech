@@ -22,35 +22,26 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ideCli;
 
-    @NotEmpty
     private String nomCli;
 
-    @NotEmpty
     private String apePat;
 
-    @NotEmpty
     private String apeMat;
 
-    @NotEmpty
     private String dniCli;
 
-    @NotEmpty
     private String dirCli;
 
     private Integer ideDis;
 
-    @NotEmpty
     private String telCli;
 
-    @NotEmpty
     private String emaCli;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaNac;
 
-    @NotEmpty
     private String sexo;
 
-    @NotEmpty
     private String rolCli;
 }
