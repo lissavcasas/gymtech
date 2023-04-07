@@ -59,7 +59,7 @@
                             <td th:text="${cliente.ideDis}"  >Mostrar Distrito</td>
                             <td th:text="${cliente.telCli}"  >Mostrar Telefono</td>
                             <td th:text="${cliente.emaCli}"  >Mostrar Email</td>
-                            <td th:text="${cliente.fechaNac}"  >Mostrar Fecha de nacimiento</td>
+                            <td th:text="${#temporals.format(cliente.fechaNac, 'dd/MM/yyyy')}">Mostrar Fecha de nacimiento</td>
                             <td th:text="${cliente.sexo}"  >Mostrar sexo Nac</td>
                             <td th:text="${cliente.rolCli}"  >Mostrar rolCli</td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')"  style="text-align: center;"> 
