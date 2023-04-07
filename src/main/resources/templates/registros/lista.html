@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+    <head th:replace="layout/plantilla :: head">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"          ></header>
+        <section th:replace="registros/botonIniciarRutina :: botonIniciarRutina"></section>
+        <section th:replace="registros/agregarRegistro :: agregarRegistro"></section>
+        <div>
+            <div>
+                <h2>Listado de Registros</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código Rutina</th>
+                            <th>Nombre Cliente</th>
+                            <th>Nombre Entrenador</th>
+                            <th>Nombre Rutina</th>
+                            <th>Hora Entrada</th>
+                            <th>Hora Salida</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="registro : ${registros}">
+                            <td th:text="${registro.cod_Rutina}"></td>
+                            <td th:text="${registro.nom_Cli + ' ' + registro.ape_Pat}"></td>
+                            <td th:text="${registro.nom_Entrenador + ' ' + registro.ape_Pat_Entrenador}"></td>
+                            <td th:text="${registro.nom_Rutina}"></td>
+                            <td th:text="${registro.hora_Entrada}"></td>
+                            <td th:text="${registro.hora_Salida}"></td>
+                            <td th:text="${registro.fecha}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
