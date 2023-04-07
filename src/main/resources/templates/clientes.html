@@ -62,8 +62,16 @@
                             <td th:text="${cliente.fechaNac}"  >Mostrar Fecha de nacimiento</td>
                             <td th:text="${cliente.sexo}"  >Mostrar sexo Nac</td>
                             <td th:text="${cliente.rolCli}"  >Mostrar rolCli</td>
-                            <td sec:authorize="hasRole('ROLE_ADMIN')" > <a th:href="@{/editar/} + ${cliente.ideCli} "       /> [[#{accion.editar}]]   </td>
-                            <td sec:authorize="hasRole('ROLE_ADMIN')" > <a th:href="@{/eliminar/} + ${cliente.ideCli} "         /> [[#{accion.eliminar}]]   </td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')"  style="text-align: center;"> 
+                                <a th:href="@{/editar/} + ${cliente.ideCli}" >
+                                    <i class="fas fa-pencil"  style="color: #FEAF00;"></i> 
+                                </a>
+                            </td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" style="text-align: center;"> 
+                                <a th:href="@{/eliminar/} + ${cliente.ideCli}">
+                                    <i class="fas fa-trash"  style="color: #FEAF00;"></i>  
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
 
