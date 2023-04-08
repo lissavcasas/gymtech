@@ -34,11 +34,10 @@ public class ControladorAsistencias {
    
     @GetMapping("/registros")
     public String listarRegistros(Model model) {
-        Integer ide_cli = ideCliByUser();
         List<RegistroDTO> registros = registroService.listarRegistros();
         model.addAttribute("registros", registros);
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
-        model.addAttribute("user_ide_cli",ide_cli);
+        model.addAttribute("user_ide_cli",ideCliByUser());
         return "registros/lista";
     }
 
@@ -53,15 +52,9 @@ public class ControladorAsistencias {
 
     @PostMapping("/registros/nuevo")
     public String crearRegistro(@ModelAttribute("registro") Registro registro) {
-        Integer ide_cli = ideCliByUser();
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String fechaHoraActual = now.format(formatter);
-        String horaActual = now.format(formatterHora);
-        registro.setHora_entrada(horaActual);
-        registro.setFecha(fechaHoraActual.substring(0, 10)); //obtener solo la fecha sin la hora
-        registro.setIde_cli(ide_cli);
+        registro.setHora_entrada(getTimeNow());
+        registro.setFecha(getDateNow()); 
+        registro.setIde_cli(ideCliByUser());
         registroService.guardarRegistro(registro);
         return "redirect:/registros";
     }
@@ -86,15 +79,11 @@ public class ControladorAsistencias {
         if (idRegistro == null) {
             return "redirect:/registros";
         }
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horaActual = now.format(formatterHora);
-        
         Registro registroCompleto = registroService.encontrarRegistro(idRegistro);
         if (registroCompleto == null) {
             return "redirect:/registros";
         }
-        registroCompleto.setHora_salida(horaActual);
+        registroCompleto.setHora_salida(getTimeNow());
         registroService.actualizarRegistro(idRegistro ,registroCompleto);
         return "redirect:/registros";
     }
@@ -112,6 +101,20 @@ public class ControladorAsistencias {
         String currentUserName = authentication.getName();
         Integer ide_cli = usuarioService.findUserCodeByUsername(currentUserName);
         return ide_cli;
+    }
+    
+    public String getTimeNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String horaActual = now.format(formatterHora);
+        return horaActual;
+    }
+    
+    public String getDateNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String fechaHoraActual = now.format(formatter);
+        return fechaHoraActual.substring(0, 10);
     }
     
 }
