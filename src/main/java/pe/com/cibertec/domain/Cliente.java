@@ -1,6 +1,7 @@
 package pe.com.cibertec.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,8 +39,8 @@ public class Cliente implements Serializable {
 
     private String emaCli;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date fechaNac;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fechaNac;
 
     private String sexo;
 

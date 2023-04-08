@@ -20,10 +20,6 @@ public class ClienteServiceImpl implements ClienteService {
          if(palabra != null){
             return clienteoDao.filtrarClientes(palabra.toLowerCase());
         }
-            /*
-            return clienteoDao.findByDniCliContainingIgnoreCase(palabra);
-        }
-      */
         return (List<Cliente>) clienteoDao.findAll();
     }
 

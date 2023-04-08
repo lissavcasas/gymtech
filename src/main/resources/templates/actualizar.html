@@ -15,7 +15,7 @@
             <div  class="container  my-3 text-white"       >
                 <div class="row">
                     <div  class="col-12"    >
-                        <a   th:href="@{/}" class="btn btn-warning float-left"   > 
+                        <a   th:href="@{/clientes}" class="btn btn-warning float-left"   > 
                             <i class="fas fa-arrow-left" > </i> 
                             [[#{accion.regresar}]]
                         </a>
@@ -30,7 +30,8 @@
                     <div  class="col-md-6  mx-auto "  >
                         <div  class="card" >
                             <div  class="card-body"  >
-                                <form th:action="@{/guardar}" method="post"  th:object="${cliente}" >
+
+                                <form th:action="@{/guardar}"  method="post"  th:object="${cliente}" >
                                     <!--                                    <input type="hidden" name="ideCli" th:field="*{ideCli}"  />
                                                                         <br/>-->
 
@@ -88,9 +89,8 @@
                                         <label for="rolCli" class="form-control-label">[[#{cliente.rol}]]:</label>
                                         <input type="text" name="rolCli"  id="rolCli" class="form-control"  th:field="*{rolCli}" required="required"/>
                                     </div>
-
                                     <div class="col-lg-12 ">
-                                        <input type="submit" name="guardar"  class=" btn btn-info btn-block" th:value="#{accion.guardar}"  />
+                                        <input type="submit" name="guardar" class="btn btn-info btn-block" th:value="#{accion.guardar}" />
                                     </div>
                                 </form>
                             </div>
@@ -99,6 +99,30 @@
                 </div>
             </div>
         </section>
+        <!-- Sección de mensajes -->
+        <div th:if="${mensaje}"  id="mensaje" class="alert alert-success" role="alert">
+            <p th:text="${mensaje}"></p>
+        </div>
+        <div th:if="${error}"  id="error" class="alert alert-danger" role="alert">
+            <p th:text="${error}"></p>
+        </div>
         <footer th:replace="layout/plantilla :: footer"          ></footer>
+        <script>
+            // Declaracion de variables
+            var mensaje = document.getElementById("mensaje");
+            var error = document.getElementById("error");
+
+            // Función para redirigir a la página principal después de 3 segundos
+            function redirigir() {
+                setTimeout(function () {
+                    window.location.href = "/clientes";
+                }, 3000);
+            }
+
+            // Llama la función de redirección cuando se muestra el mensaje de exito
+            if (mensaje != null && error == null) {
+                redirigir();
+            }
+        </script>
     </body>
 </html>
