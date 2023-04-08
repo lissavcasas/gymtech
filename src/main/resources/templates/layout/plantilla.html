@@ -18,12 +18,6 @@
             <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
             <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
             <style type="text/css">
-                .container {
-                    background-color: darkorange;
-                    color: white;
-                    padding: 10px;
-                }
-
                 /* estilo del elemento activo */
                 li.active {
                     background-color: darkorange;
@@ -109,8 +103,8 @@
 
         <footer th:fragment="footer" class="footer bg-black py-0" style=" background-color: #FEAF00;">
             <div class="container text-center" style="padding: 30px 30px;">
-                <a style="text-decoration: none; color: white" th:href="@{/clientes(lang=es)}">ES |</a>
-                <a style="text-decoration: none; color: white" th:href="@{/clientes(lang=en)}">EN |</a>
+                <a style="text-decoration: none; color: white" th:href="@{/(lang=es)}">ES |</a>
+                <a style="text-decoration: none; color: white" th:href="@{/(lang=en)}">EN |</a>
                 <span style="color: white">[[#{plantilla.pie-pagina}]] &copy;
                     <a style="text-decoration: none; color: white" href="https://www.cibertec.edu.pe"
                        target="_blank">Cibertec</a> </span>
