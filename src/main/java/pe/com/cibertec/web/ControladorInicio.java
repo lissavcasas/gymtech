@@ -60,7 +60,7 @@ public class ControladorInicio {
         if (result.hasErrors()) {
             String mensaje = "Los siguientes campos presentan errores: ";
             for (FieldError error : result.getFieldErrors()) {
-                mensaje += error.getField();
+                mensaje += error.getField() + " ";
             }
             model.addAttribute("error", mensaje);
             return "actualizar";
@@ -80,8 +80,10 @@ public class ControladorInicio {
     }
 
     @GetMapping("/eliminar/{ideCli}")
-    public String eliminar(Cliente cliente) {
-        clienteService.eliminar(cliente);
+    public String eliminar(Cliente cliente, Model model) {
+        log.info("Cliente con código:" + cliente.getIdeCli());
+        clienteService.eliminar(cliente); 
+        model.addAttribute("cliente", cliente);
         return "redirect:/clientes";
     }
 }

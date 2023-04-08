@@ -68,10 +68,34 @@
                                 </a>
                             </td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')" style="text-align: center;"> 
-                                <a th:href="@{/eliminar/} + ${cliente.ideCli}">
-                                    <i class="fas fa-trash"  style="color: #FEAF00;"></i>  
+                                <a href="#" class="eliminar-cliente" data-id="${cliente.ideCli}"
+                                   th:attr="data-url=@{/eliminar/{clienteId}(clienteId=${cliente.ideCli})}">
+                                    <i class="fas fa-trash" style="color: #FEAF00;"></i>  
                                 </a>
                             </td>
+
+                            <!-- Modal de confirmación de eliminación -->
+                            <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="confirm-modal-label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirm-modal-label">Confirmar eliminación</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>¿Está seguro de que desea eliminar este cliente?</p>
+                                            <p>Este cambio no se puede deshacer.</p>
+                                            <input type="hidden" name="clienteId">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <a href="#" class="btn btn-danger" id="eliminar-cliente">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     </tbody>
 
@@ -81,5 +105,26 @@
             [[#{cliente.lista-vacia}]]
         </div>
         <footer th:replace="layout/plantilla :: footer"          ></footer>
+
+        <script>
+            $(document).ready(function () {
+                // Evento click del icono eliminar
+                $('.eliminar-cliente').on('click', function (e) {
+                    e.preventDefault();
+                    var clienteId = $(this).data('id');
+                    console.log(clienteId);
+                    $('#confirm-modal input[name="clienteId"]').val(clienteId);
+                    var url = $(this).data('url');
+                    $('#eliminar-cliente').attr('href', url);
+                    $('#confirm-modal').modal('show');
+                });
+
+                // Evento click del botón eliminar del modal
+                $('#eliminar-cliente').on('click', function (e) {
+                    var clienteId = $('#confirm-modal input[name="clienteId"]').val();
+                    window.location.href = "/eliminar/" + clienteId;
+                });
+            });
+        </script>
     </body>
 </html>
