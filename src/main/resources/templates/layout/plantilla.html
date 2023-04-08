@@ -43,12 +43,12 @@
                 <!--  Logo-->
                 <div class="logo">
                     <a th:href="@{/clientes}" class="navbar-brand">
-                        <img src="logo_sidebar.png" class="img-fluid" alt="Logo">
+                        <img th:src="@{/logo_sidebar.png}" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <!--  User-->
                 <div class="text-center" style="margin-top:60px; margin-bottom:60px; ">
-                    <img src="avatar.png" alt="Avatar" class="rounded-circle" width="80" height="80">
+                    <img th:src="@{/avatar.png}" alt="Avatar" class="rounded-circle" width="80" height="80">
                         <div class="mt-2" sec:authorize="isAuthenticated()"
                              style="text-align: center; padding: 15px; font-weight: bold">
                             <span sec:authentication="name"> Usuario</span>
