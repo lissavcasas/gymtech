@@ -88,29 +88,29 @@ public class ControladorAsistencias {
         return "redirect:/registros";
     }
     
-    public boolean hayRegistroEnProceso() {
+    private boolean hayRegistroEnProceso() {
         return registroService.hayRegistroEnProceso();
     }
     
-    public Long obtenerIdRegistroEnProceso() {
+    private Long obtenerIdRegistroEnProceso() {
         return registroService.obtenerIdRegistroEnProceso();
     }
 
-    public Integer ideCliByUser() {
+    private Integer ideCliByUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         Integer ide_cli = usuarioService.findUserCodeByUsername(currentUserName);
         return ide_cli;
     }
     
-    public String getTimeNow() {
+    private String getTimeNow() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
         String horaActual = now.format(formatterHora);
         return horaActual;
     }
     
-    public String getDateNow() {
+    private String getDateNow() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String fechaHoraActual = now.format(formatter);
