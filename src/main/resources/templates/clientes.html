@@ -12,11 +12,11 @@
         <header th:replace="layout/plantilla :: header"          ></header>
         <section   th:replace="layout/botonesAgregar :: a"  >
         </section>
-
-        <div class="table-responsive mt-5">
-            <div class="container" th:if="${clientes != null   and   !clientes.empty }"     >
-
-                <form class="form-inline " th:action="@{/clientes}">
+        
+  
+     
+       <div class="form-inline" style="width: 100%">
+               <form class="form-inline ml-5" th:action="@{/clientes}">
                     <div class="form-group mb-2">
                         <label>Filtrar:</label> 
                     </div>
@@ -29,6 +29,14 @@
                     <input type="submit" class=" btn btn-warning mb-2" th:value="#{cliente.filtro}"> &nbsp
                         <a th:href="@{/clientes}" class="btn btn-secondary mb-2" th:text="#{cliente.limpiar}"    > Inicio </a>
                 </form>
+        
+            
+        </div>
+ 
+        <div class="table-responsive mt-5">
+            <div class="container" th:if="${clientes != null   and   !clientes.empty }"     >
+
+               
                 <table  class="table" border="1"  >
                     <thead class="table-dark">
                         <tr>
@@ -101,7 +109,7 @@
 
                 </table>
             </div> </div>
-        <div  th:if="${clientes == null  or clientes.empty }"   >
+        <div class="ml-5" th:if="${clientes == null  or clientes.empty }"   >
             [[#{cliente.lista-vacia}]]
         </div>
         <footer th:replace="layout/plantilla :: footer"          ></footer>
