@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import pe.com.cibertec.domain.RegistroDTO;
 import pe.com.cibertec.domain.Rutina;
 import pe.com.cibertec.servicio.RegistroService;
 import pe.com.cibertec.servicio.RutinaService;
+import pe.com.cibertec.servicio.UsuarioService;
 
 @Controller
 @Slf4j
@@ -26,11 +29,15 @@ public class ControladorAsistencias {
     @Autowired
     private RutinaService rutinaService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+   
     @GetMapping("/registros")
     public String listarRegistros(Model model) {
         List<RegistroDTO> registros = registroService.listarRegistros();
         model.addAttribute("registros", registros);
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
+        model.addAttribute("user_ide_cli",ideCliByUser());
         return "registros/lista";
     }
 
@@ -45,13 +52,9 @@ public class ControladorAsistencias {
 
     @PostMapping("/registros/nuevo")
     public String crearRegistro(@ModelAttribute("registro") Registro registro) {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String fechaHoraActual = now.format(formatter);
-        String horaActual = now.format(formatterHora);
-        registro.setHora_entrada(horaActual);
-        registro.setFecha(fechaHoraActual.substring(0, 10)); //obtener solo la fecha sin la hora
+        registro.setHora_entrada(getTimeNow());
+        registro.setFecha(getDateNow()); 
+        registro.setIde_cli(ideCliByUser());
         registroService.guardarRegistro(registro);
         return "redirect:/registros";
     }
@@ -66,7 +69,9 @@ public class ControladorAsistencias {
         if (registro == null) {
             return "redirect:/registros";
         }
+        Rutina rutina = rutinaService.getRutinaById(registro.getCod_rutina().longValue());
         model.addAttribute("registro", registro);
+        model.addAttribute("rutina",rutina);
         return "registros/editar";
     }
 
@@ -76,25 +81,42 @@ public class ControladorAsistencias {
         if (idRegistro == null) {
             return "redirect:/registros";
         }
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horaActual = now.format(formatterHora);
-        
         Registro registroCompleto = registroService.encontrarRegistro(idRegistro);
         if (registroCompleto == null) {
             return "redirect:/registros";
         }
-        registroCompleto.setHora_salida(horaActual);
+        registroCompleto.setHora_salida(getTimeNow());
         registroService.actualizarRegistro(idRegistro ,registroCompleto);
         return "redirect:/registros";
     }
     
-    public boolean hayRegistroEnProceso() {
+    private boolean hayRegistroEnProceso() {
         return registroService.hayRegistroEnProceso();
     }
     
-    public Long obtenerIdRegistroEnProceso() {
+    private Long obtenerIdRegistroEnProceso() {
         return registroService.obtenerIdRegistroEnProceso();
     }
 
+    private Integer ideCliByUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Integer ide_cli = usuarioService.findUserCodeByUsername(currentUserName);
+        return ide_cli;
+    }
+    
+    private String getTimeNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String horaActual = now.format(formatterHora);
+        return horaActual;
+    }
+    
+    private String getDateNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String fechaHoraActual = now.format(formatter);
+        return fechaHoraActual.substring(0, 10);
+    }
+    
 }

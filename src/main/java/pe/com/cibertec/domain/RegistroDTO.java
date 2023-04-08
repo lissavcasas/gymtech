@@ -5,6 +5,7 @@
 package pe.com.cibertec.domain;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public interface RegistroDTO {
 
@@ -17,6 +18,6 @@ public interface RegistroDTO {
     String getNom_Rutina();
     String getHora_Entrada();
     String getHora_Salida();
-    Date getFecha();
+    LocalDate getFecha();
       
 }
