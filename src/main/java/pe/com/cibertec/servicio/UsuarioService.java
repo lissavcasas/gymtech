@@ -38,4 +38,16 @@ public class UsuarioService implements UserDetailsService {
 
         return new User(usuario.getUsername(), usuario.getPassword(), roles);
     }
+
+    
+    @Transactional(readOnly = true)
+    public Integer findUserCodeByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioDao.findByUsername(username);
+
+        if (usuario == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return usuario.getIde_cli();
+    }
 }

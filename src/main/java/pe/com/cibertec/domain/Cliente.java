@@ -1,6 +1,7 @@
 package pe.com.cibertec.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,35 +23,26 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ideCli;
 
-    @NotEmpty
     private String nomCli;
 
-    @NotEmpty
     private String apePat;
 
-    @NotEmpty
     private String apeMat;
 
-    @NotEmpty
     private String dniCli;
 
-    @NotEmpty
     private String dirCli;
 
     private Integer ideDis;
 
-    @NotEmpty
     private String telCli;
 
-    @NotEmpty
     private String emaCli;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date fechaNac;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fechaNac;
 
-    @NotEmpty
     private String sexo;
 
-    @NotEmpty
     private String rolCli;
 }
