@@ -1,10 +1,13 @@
 package pe.com.cibertec.web;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 import pe.com.cibertec.domain.Rutina;
@@ -38,6 +42,7 @@ public class ControladorAsistencias {
         model.addAttribute("registros", registros);
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
         model.addAttribute("user_ide_cli",ideCliByUser());
+        
         return "registros/lista";
     }
 

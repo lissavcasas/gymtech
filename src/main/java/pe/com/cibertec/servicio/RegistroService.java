@@ -5,6 +5,7 @@
 package pe.com.cibertec.servicio;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 
