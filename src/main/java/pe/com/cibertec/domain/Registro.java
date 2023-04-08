@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -22,19 +23,18 @@ public class Registro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRegistro;
+    private Long cod_registro;
     
     @NotEmpty
-    private String horaEntrada;
+    private String hora_entrada;
 
-    @NotEmpty
-    private String horaSalida;
+    private String hora_salida;
 
-    @NotEmpty
-    private Integer idCliente;
+    @NotNull
+    private Integer ide_cli;
     
-    @NotEmpty
-    private Integer idRutina;
+    @NotNull
+    private Integer cod_rutina;
     
     @NotEmpty
     private String fecha;

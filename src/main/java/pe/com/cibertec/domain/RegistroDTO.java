@@ -9,6 +9,7 @@ import java.sql.Date;
 public interface RegistroDTO {
 
     Integer getCod_Rutina();
+    Integer getIde_Cli();
     String getNom_Cli();
     String getApe_Pat();
     String getNom_Entrenador();

@@ -22,7 +22,7 @@ public class Rutina implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRutina;
+    private Long cod_rutina;
     
     @NotEmpty
     private String nom_rutina;

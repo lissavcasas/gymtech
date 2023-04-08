@@ -21,4 +21,8 @@ public interface RegistroService {
     
     public Registro encontrarRegistro(Long id);
     
+    public boolean hayRegistroEnProceso();
+    
+    public Long obtenerIdRegistroEnProceso();
+    
 }

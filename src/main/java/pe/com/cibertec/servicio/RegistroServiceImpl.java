@@ -37,7 +37,7 @@ public class RegistroServiceImpl implements RegistroService {
     public void actualizarRegistro(Long id, Registro registro) {
         Registro registroExistente = registroDao.findById(id).orElse(null);
         if (registroExistente != null) {
-            registro.setIdRegistro(id);
+            registro.setCod_registro(id);
             registroDao.save(registro);
         }
     }
@@ -47,4 +47,25 @@ public class RegistroServiceImpl implements RegistroService {
         return registroDao.findById(id).orElse(null);
     }
     
+    @Override
+    public boolean hayRegistroEnProceso() {
+        List<Registro> registros = registroDao.findAll();
+        for (Registro registro : registros) {
+            if (registro.getHora_salida() == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Long obtenerIdRegistroEnProceso() {
+        List<Registro> registros = registroDao.findAll();
+        for (Registro registro : registros) {
+            if (registro.getHora_salida() == null) {
+                return registro.getCod_registro();
+            }
+        }
+        return null;
+    }
 }
