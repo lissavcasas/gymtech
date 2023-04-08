@@ -17,14 +17,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <section th:replace="registros/botonFinalizarRutina :: botonFinalizarRutina"></section>
         </div>
         <div th:if="${not hayRegistroEnProceso}">
-            <section th:replace="registros/botonIniciarRutina :: botonIniciarRutina"></section>
+                        <section th:replace="registros/botonIniciarRutina :: botonIniciarRutina"></section>
         </div>
-        <section th:replace="registros/agregarRegistro :: agregarRegistro"></section>
-        <div>
             <div>
                 <h2>Listado de Registros</h2>
-                <table>
-                    <thead>
+                <table class="table" border="1"  >
+                    <thead class="table-dark">
                         <tr>
                             <th>Código Rutina</th>
                             <th>Cod Cliente</th>
@@ -37,20 +35,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="registro : ${registros}" th:if="${registro.ide_Cli == user_ide_cli}">
+<!--                        <tr th:each="registro : ${registros}" th:if="${registro.ide_Cli == user_ide_cli}">-->
+<!--                           <tr th:each="registro : ${registros}" th:if="${#authorization.expression('hasRole(''ROLE_CLIENTE'')') and registro.ide_Cli == user_ide_cli}">-->
+                            <tr th:each="registro : ${registros}" th:if="${#authorization.expression('hasRole(''ROLE_CLIENTE'')') ? registro.ide_Cli == user_ide_cli : true}">
+    
                             <td th:text="${registro.cod_Rutina}"></td>
                             <td th:text="${registro.ide_Cli}"></td>
                             <td th:text="${registro.nom_Cli + ' ' + registro.ape_Pat}"></td>
                             <td th:text="${registro.nom_Entrenador + ' ' + registro.ape_Pat_Entrenador}"></td>
                             <td th:text="${registro.nom_Rutina}"></td>
                             <td th:text="${registro.hora_Entrada}"></td>
-<!--                            //<td th:text="${registro.hora_Salida}"></td>-->
                             <td th:text="${registro.hora_Salida == null ? 'En proceso' : registro.hora_Salida}"></td>
-                            <td th:text="${registro.fecha}"></td>
+                            <td th:text="${#temporals.format(registro.fecha, 'dd/MM/yyyy')}"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
     </body>
 </html>

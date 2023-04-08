@@ -22,4 +22,8 @@ public class RutinaServiceImpl implements RutinaService {
         return rutinaDao.findAll();
     }
     
+    public Rutina getRutinaById(Long id) {
+        return rutinaDao.findById(id).orElse(null);
+    }
+    
 }

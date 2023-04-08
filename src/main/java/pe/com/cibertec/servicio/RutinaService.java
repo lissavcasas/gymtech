@@ -12,4 +12,6 @@ public interface RutinaService {
     
     public List<Rutina> listarRutinas();
     
+    public Rutina getRutinaById(Long id);
+    
 }

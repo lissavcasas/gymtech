@@ -7,25 +7,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec"http://www.thymeleaf.org/extras/spring-security"
       >
-    <head>
+    <head th:replace="layout/plantilla :: head">
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <form th:action="@{/registros/nuevo}" th:object="${registro}" method="POST" class="was-validated">
-            <div class="form-group">
-                <label for="rutina" th:text="#{registro.rutina}">Rutina</label>
-                <select class="form-control" name="rutina" th:field="*{cod_rutina}">
-                    <option th:each="rutina : ${rutinas}"
-                            th:value="${rutina.cod_rutina}"
-                            th:text="${rutina.nom_rutina}">Rutina 1</option>
-                </select>
+        <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <div class="form-container" style="background-color: #fef2bf; padding: 30px; border-radius: 10px;">
+                <form th:action="@{/registros/nuevo}" th:object="${registro}" method="POST" class="was-validated">
+                    <div class="form-group">
+                        <label for="rutina" th:text="#{registro.seleccionar-rutina}">Rutina</label>
+                        <select class="form-control" name="rutina" th:field="*{cod_rutina}">
+                            <option th:each="rutina : ${rutinas}"
+                                    th:value="${rutina.cod_rutina}"
+                                    th:text="${rutina.nom_rutina}">Rutina 1</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit" th:text="#{accion.iniciar}" name="nuevo" th:value="#{accion.guardar}" style="background-color: #FEAF00; border: none; font-weight: bold">
+                        Iniciar
+                    </button>
+                </form>   
             </div>
-            <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}" name="nuevo" th:value="#{accion.guardar}">
-                Guardar
-            </button>
-
-            </div>
-        </form>   
+        </div>
     </body>
+
+
 </html>

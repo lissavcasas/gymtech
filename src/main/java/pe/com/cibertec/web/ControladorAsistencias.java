@@ -69,7 +69,9 @@ public class ControladorAsistencias {
         if (registro == null) {
             return "redirect:/registros";
         }
+        Rutina rutina = rutinaService.getRutinaById(registro.getCod_rutina().longValue());
         model.addAttribute("registro", registro);
+        model.addAttribute("rutina",rutina);
         return "registros/editar";
     }
 
