@@ -27,8 +27,25 @@ public class ControladorInicio {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping("/clientes")
+    @GetMapping("/")
     public String inicio(Model model, @Param("palabra") String palabra, @AuthenticationPrincipal User user) {
+        Collection<? extends GrantedAuthority> currentUserRoles = user.getAuthorities();
+        log.info("User rol:" + currentUserRoles);
+        boolean isAdmin = currentUserRoles.stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = currentUserRoles.stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_CLIENTE"));
+
+        if (isClient && !isAdmin) {
+            model.addAttribute("mostrarBoton", true);
+        } else {
+            model.addAttribute("mostrarBoton", false);
+        }
+        return "home";
+    }
+
+    @GetMapping("/clientes")
+    public String clientes(Model model, @Param("palabra") String palabra, @AuthenticationPrincipal User user) {
         Collection<? extends GrantedAuthority> currentUserRoles = user.getAuthorities();
         log.info("User rol:" + currentUserRoles);
         boolean isAdmin = currentUserRoles.stream()
@@ -82,7 +99,7 @@ public class ControladorInicio {
     @GetMapping("/eliminar/{ideCli}")
     public String eliminar(Cliente cliente, Model model) {
         log.info("Cliente con código:" + cliente.getIdeCli());
-        clienteService.eliminar(cliente); 
+        clienteService.eliminar(cliente);
         model.addAttribute("cliente", cliente);
         return "redirect:/clientes";
     }
