@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import pe.com.cibertec.domain.RegistroDTO;
 import pe.com.cibertec.domain.Rutina;
 import pe.com.cibertec.servicio.RegistroService;
 import pe.com.cibertec.servicio.RutinaService;
+import pe.com.cibertec.servicio.UsuarioService;
 
 @Controller
 @Slf4j
@@ -26,11 +29,16 @@ public class ControladorAsistencias {
     @Autowired
     private RutinaService rutinaService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+   
     @GetMapping("/registros")
     public String listarRegistros(Model model) {
+        Integer ide_cli = ideCliByUser();
         List<RegistroDTO> registros = registroService.listarRegistros();
         model.addAttribute("registros", registros);
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
+        model.addAttribute("user_ide_cli",ide_cli);
         return "registros/lista";
     }
 
@@ -45,6 +53,7 @@ public class ControladorAsistencias {
 
     @PostMapping("/registros/nuevo")
     public String crearRegistro(@ModelAttribute("registro") Registro registro) {
+        Integer ide_cli = ideCliByUser();
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -52,6 +61,7 @@ public class ControladorAsistencias {
         String horaActual = now.format(formatterHora);
         registro.setHora_entrada(horaActual);
         registro.setFecha(fechaHoraActual.substring(0, 10)); //obtener solo la fecha sin la hora
+        registro.setIde_cli(ide_cli);
         registroService.guardarRegistro(registro);
         return "redirect:/registros";
     }
@@ -97,4 +107,11 @@ public class ControladorAsistencias {
         return registroService.obtenerIdRegistroEnProceso();
     }
 
+    public Integer ideCliByUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Integer ide_cli = usuarioService.findUserCodeByUsername(currentUserName);
+        return ide_cli;
+    }
+    
 }

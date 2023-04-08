@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"          ></header>
+        <header th:replace="layout/plantilla :: header"></header>
         <div th:if="${hayRegistroEnProceso}">
             <section th:replace="registros/botonFinalizarRutina :: botonFinalizarRutina"></section>
         </div>
@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="registro : ${registros}" th:if="${registro.ide_Cli == 3}">
+                        <tr th:each="registro : ${registros}" th:if="${registro.ide_Cli == user_ide_cli}">
                             <td th:text="${registro.cod_Rutina}"></td>
                             <td th:text="${registro.ide_Cli}"></td>
                             <td th:text="${registro.nom_Cli + ' ' + registro.ape_Pat}"></td>
