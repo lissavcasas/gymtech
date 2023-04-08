@@ -128,7 +128,17 @@
                                 </table>
                             </div>
                         </div>
+
+
+                         <!-- Empty List -->
+                        <div th:if="${clientes == null  or clientes.empty }"  style="height: 50vh; display: flex; align-items: center; justify-content: center;">
+                            <div  class="text-center" style="display: inline-block;">
+                                <p> [[#{cliente.lista-vacia}]] </p>
+                            </div>   
+                        </div>
+                        
                     </div>
+
                     <!-- Footer -->
                     <footer th:replace="layout/plantilla :: footer"></footer>
                 </main>
