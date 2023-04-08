@@ -16,8 +16,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional(readOnly = true)
     public List<Cliente> listarClientes(String palabra) {
-        
-         if(palabra != null){
+
+        if (palabra != null) {
             return clienteoDao.filtrarClientes(palabra.toLowerCase());
         }
         return (List<Cliente>) clienteoDao.findAll();
