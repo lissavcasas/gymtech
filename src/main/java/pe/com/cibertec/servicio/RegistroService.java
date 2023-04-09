@@ -5,7 +5,6 @@
 package pe.com.cibertec.servicio;
 
 import java.util.List;
-import org.springframework.data.domain.Page;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 
@@ -22,8 +21,10 @@ public interface RegistroService {
     
     public Registro encontrarRegistro(Long id);
     
-    public boolean hayRegistroEnProceso();
+    public boolean hayRegistroEnProceso(Integer user_ide_cli);
     
     public Long obtenerIdRegistroEnProceso();
+    
+    public Integer obtenerUsuariosActivos();
     
 }

@@ -40,4 +40,9 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente encontrarCliente(Cliente cliente) {
         return clienteoDao.findById(cliente.getIdeCli()).orElse(null);
     }
+
+    @Override
+    public Long countClientes() {
+        return clienteoDao.count();
+    }
 }

@@ -1,17 +1,20 @@
 package pe.com.cibertec.Dao;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 
 @Repository
-public interface RegistroDao extends JpaRepository<Registro, Long> {
+public interface RegistroDao extends PagingAndSortingRepository<Registro, Long>, JpaRepository<Registro, Long> {
 
 //    @Query(value = "{call listado_registros()}", nativeQuery = true)
-    @Query(nativeQuery = true, value = "	SELECT \n" +
+    @Query(nativeQuery = true, value = "SELECT \n" +
 "        ru.cod_rutina,\n" +
 "        c.ide_cli,\n" +
 "        c.nom_cli,\n" +
@@ -30,5 +33,6 @@ public interface RegistroDao extends JpaRepository<Registro, Long> {
 "	ORDER BY \n" +
 "    reg.fecha DESC,\n" +
 "    reg.hora_entrada DESC;")
-    List<RegistroDTO> listarRegistros();     
+    List<RegistroDTO> listarRegistros();
+    
 }
