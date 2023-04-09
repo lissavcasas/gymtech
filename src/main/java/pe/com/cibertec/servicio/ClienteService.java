@@ -6,6 +6,8 @@ import pe.com.cibertec.domain.Cliente;
 public interface ClienteService {
 
     public List<Cliente> listarClientes(String palabra);
+    
+    public Long countClientes();
 
     public void guardar(Cliente cliente);
 

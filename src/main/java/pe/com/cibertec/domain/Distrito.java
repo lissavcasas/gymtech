@@ -15,25 +15,16 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "tb_rutinas")
-public class Rutina implements Serializable {
+@Table(name = "tb_distritos")
+public class Distrito implements Serializable {
     
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cod_rutina;
+    private Long ide_dis;
     
     @NotEmpty
-    private String nom_rutina;
-    
-    @NotEmpty
-    private String fec_comienzo;
-    
-    @NotEmpty
-    private String fec_termino;
-    
-    @NotEmpty
-    private Integer cod_entrenador;
+    private String nom_dis;
     
 }

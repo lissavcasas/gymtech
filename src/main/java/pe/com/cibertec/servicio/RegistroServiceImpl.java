@@ -6,7 +6,6 @@ package pe.com.cibertec.servicio;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.com.cibertec.Dao.RegistroDao;
@@ -52,10 +51,10 @@ public class RegistroServiceImpl implements RegistroService {
     }
     
     @Override
-    public boolean hayRegistroEnProceso() {
+    public boolean hayRegistroEnProceso(Integer user_ide_cli) {
         List<Registro> registros = registroDao.findAll();
         for (Registro registro : registros) {
-            if (registro.getHora_salida() == null) {
+            if (registro.getHora_salida() == null && registro.getIde_cli() == user_ide_cli) {
                 return true;
             }
         }
@@ -73,4 +72,15 @@ public class RegistroServiceImpl implements RegistroService {
         return null;
     }
 
+    @Override
+    public Integer obtenerUsuariosActivos() {
+        List<Registro> registros = registroDao.findAll();
+        Integer count = 0;
+        for (Registro registro : registros) {
+            if (registro.getHora_salida() == null) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

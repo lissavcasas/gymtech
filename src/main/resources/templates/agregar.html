@@ -71,11 +71,12 @@
                                                         <input type="text" name="dirCli" id="dirCli" class="form-control"
                                                                th:field="*{dirCli}" required="required" />
                                                     </div>
-
                                                     <div class="form-group">
-                                                        <label for="ideDis" class="form-control-label">[[#{cliente.distrito}]]:</label>
-                                                        <input type="text" name="ideDis" id="ideDis" class="form-control"
-                                                               th:field="*{ideDis}" required="required" />
+                                                        <label for="ideDis" class="form-control-label" >[[#{cliente.distrito}]]:</label>
+                                                        <select class="form-control" id="ideDis" name="ideDis" th:field="*{ideDis}" required="required" >
+                                                            <option value="">--Seleccione--</option>
+                                                            <option th:each="distrito : ${distritos}" th:value="${distrito.ide_dis}" th:text="${distrito.nom_dis}">Distrito 1</option>
+                                                        </select>
                                                     </div>
 
                                                     <div class="form-group">
@@ -96,18 +97,39 @@
                                                         <input type="text" name="fechaNac" id="fechaNac" class="form-control"
                                                                th:field="*{fechaNac}" required="required" />
                                                     </div>
-
+                                                    
                                                     <div class="form-group">
-                                                        <label for="sexo" class="form-control-label">[[#{cliente.sexo}]]:</label>
-                                                        <input type="text" name="sexo" id="sexo" class="form-control" th:field="*{sexo}"
-                                                               required="required" />
+                                                        <label for="sexo" class="form-control-label" >[[#{cliente.sexo}]]:</label>
+                                                        <select class="form-control" id="sexo" name="sexo" th:field="*{sexo}" required="required">
+                                                            <option value="">--Seleccione--</option>
+                                                            <option value="M">Masculino</option>
+                                                            <option value="F">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="rolCli" class="form-control-label" >[[#{cliente.rol}]]:</label>
+                                                        <select class="form-control" id="rolCli" name="rolCli" th:field="*{rolCli}" required="required">
+                                                            <option value="">--Seleccione--</option>
+<!--                                                            <option value="ROLE_ADMIN">Admin</option>
+                                                            <option value="ROLE_TRAINER">Entrenador</option>-->
+                                                            <option value="ROLE_CLIENTE">Cliente</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label for="username" class="form-control-label">Username:</label>
+                                                        <input type="text" name="usuario.username" id="username" class="form-control"
+                                                               th:field="${usuario.username}" required="required" />
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="rolCli" class="form-control-label">[[#{cliente.rol}]]:</label>
-                                                        <input type="text" name="rolCli" id="rolCli" class="form-control"
-                                                               th:field="*{rolCli}" required="required" />
+                                                        <label for="password" class="form-control-label">Contraseña:</label>
+                                                        <input type="text" name="usuario.password" id="password" class="form-control"
+                                                               th:field="${usuario.password}" required="required" />
                                                     </div>
+                                                   
+                                                    
                                                     <div class="col-lg-12 ">
                                                         <input type="submit" name="guardar" class="btn btn-warning btn-block"
                                                                th:value="#{accion.guardar}" />

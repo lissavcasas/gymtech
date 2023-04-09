@@ -26,20 +26,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                             <option th:each="rutina : ${rutinas}" th:value="${rutina.cod_rutina}" th:text="${rutina.nom_rutina}">Rutina 1</option>
                                         </select>
                                     </div>
-                                    <button class="btn btn-primary btn-block" type="submit" th:text="#{accion.iniciar}" name="nuevo" th:value="#{accion.guardar}" style="background-color: #FEAF00; border: none; font-weight: bold">
+                                    <button onclick="iniciarRutina()" class="btn btn-primary btn-block" type="submit" th:text="#{accion.iniciar}" name="nuevo" th:value="#{accion.guardar}" style="background-color: #FEAF00; border: none; font-weight: bold">
                                         Iniciar
                                     </button>
                                 </form>   
                             </div>
                         </div>
-
-                    </div>
+                    </div>     
                     <footer th:replace="layout/plantilla :: footer"></footer>
                 </main>
             </div>
         </div>
+        <script>
+  function iniciarRutina() {
+    alert("Rutina iniciada");
+  }
+        </script>
 
-    </body>
-
-
+</body>
 </html>

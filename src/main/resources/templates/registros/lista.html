@@ -44,13 +44,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
                         
                         <div sec:authorize="hasRole('ROLE_CLIENTE')">
-                            <div th:if="${hayRegistroEnProceso}" style="margin-top: 15px">
-                                <section th:replace="registros/botonFinalizarRutina :: botonFinalizarRutina"></section>
+
+                            <div th:if="${hayRegistroEnProceso}" class="row d-flex align-items-center" style="margin-top: 15px">
+                                <div class="col-md-3">
+                                    <section th:replace="registros/botonFinalizarRutina :: botonFinalizarRutina"></section>
+                                </div>
+
                             </div>
+
                             <div th:if="${not hayRegistroEnProceso}" style="margin-top: 15px">
                                 <section th:replace="registros/botonIniciarRutina :: botonIniciarRutina"></section>
                             </div>
+
                         </div>
+                                
                         <div class="table-responsive px-4" >
                             <table class="table table-striped">
                                 <thead>

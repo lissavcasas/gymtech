@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.com.cibertec.Dao.UsuarioDao;
+import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.Rol;
 import pe.com.cibertec.domain.Usuario;
 
@@ -50,4 +51,9 @@ public class UsuarioService implements UserDetailsService {
 
         return usuario.getIde_cli();
     }
+    
+    public void guardarRegistro(Usuario usuario) {
+        usuarioDao.save(usuario);
+    }
+    
 }

@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pe.com.cibertec.domain.Cliente;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 
@@ -13,7 +12,7 @@ import pe.com.cibertec.domain.RegistroDTO;
 public interface RegistroDao extends JpaRepository<Registro, Long> {
 
 //    @Query(value = "{call listado_registros()}", nativeQuery = true)
-    @Query(nativeQuery = true, value = "	SELECT \n" +
+    @Query(nativeQuery = true, value = "SELECT \n" +
 "        ru.cod_rutina,\n" +
 "        c.ide_cli,\n" +
 "        c.nom_cli,\n" +

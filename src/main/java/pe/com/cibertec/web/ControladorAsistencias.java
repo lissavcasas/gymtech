@@ -1,13 +1,10 @@
 package pe.com.cibertec.web;
 
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 import pe.com.cibertec.domain.Rutina;
@@ -42,9 +38,11 @@ public class ControladorAsistencias {
         List<RegistroDTO> registros = registroService.listarRegistros(param);
         model.addAttribute("registros", registros);
         model.addAttribute("param",param);
-        model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
+        model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso(ideCliByUser()));
         model.addAttribute("user_ide_cli",ideCliByUser());
-        
+        Long idRegistro = obtenerIdRegistroEnProceso();
+        Registro registroEnProceso = registroService.encontrarRegistro(idRegistro);
+        model.addAttribute("ide_cli_enProceso",registroEnProceso.getIde_cli());
         return "registros/lista";
     }
 
@@ -97,8 +95,8 @@ public class ControladorAsistencias {
         return "redirect:/registros";
     }
     
-    private boolean hayRegistroEnProceso() {
-        return registroService.hayRegistroEnProceso();
+    private boolean hayRegistroEnProceso(Integer user_ide_cli) {
+        return registroService.hayRegistroEnProceso(user_ide_cli);
     }
     
     private Long obtenerIdRegistroEnProceso() {

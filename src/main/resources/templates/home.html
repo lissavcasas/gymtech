@@ -27,14 +27,14 @@
                                 <div class="d-flex align-items-center">
                                     <h5 class="mt-2">[[#{barra.clientes}]]</h5>
                                 </div>
-                                <h2 class="text-right font-weight-bold">243</h2>
+                                <h2 class="text-right font-weight-bold" th:text="${countClientes}"></h2>
                             </div>
                             <div class="col-sm-4" style="background-color: #FEFBEC; padding: 20px; margin: 10px;">
                                 <i class="fas fa-check-circle" style="font-size: 40px; margin-right: 10px;  color: #F6C762"></i>
                                 <div class="d-flex align-items-center">
-                                    <h5 class="mt-2">[[#{barra.asistencias}]]</h5>
+                                    <h5 class="mt-2" >Clientes en entrenamiento</h5>
                                 </div>
-                                <h2 class="text-right font-weight-bold">120</h2>
+                                <h2 class="text-right font-weight-bold" th:text="${countUsersActivos}">120</h2>
                             </div>
                         </div>
                     </div>
