@@ -4,15 +4,15 @@
  */
 package pe.com.cibertec.servicio;
 
+import java.time.Duration;
 import java.util.List;
-import org.springframework.data.domain.Page;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
 
 
 public interface RegistroService {
     
-    public List<RegistroDTO> listarRegistros();
+    public List<RegistroDTO> listarRegistros(String param);
     
     public void guardarRegistro(Registro registro);
     
@@ -22,8 +22,12 @@ public interface RegistroService {
     
     public Registro encontrarRegistro(Long id);
     
-    public boolean hayRegistroEnProceso();
+    public boolean hayRegistroEnProceso(Integer user_ide_cli);
     
     public Long obtenerIdRegistroEnProceso();
+    
+    public Integer obtenerUsuariosActivos();
+    
+    public Long horasTotales(Integer user_ide_cli);
     
 }
