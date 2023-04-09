@@ -6,8 +6,10 @@ import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +65,7 @@ public class ControladorInicio {
         }
         model.addAttribute("countClientes",clienteService.countClientes());
         model.addAttribute("countUsersActivos",registroService.obtenerUsuariosActivos());
+        model.addAttribute("horasTotales",registroService.horasTotales(ideCliByUser()));
         return "home";
     }
 
@@ -124,8 +127,10 @@ public class ControladorInicio {
 
     @GetMapping("/editar/{ideCli}")
     public String editar(Cliente cliente, Model model) {
+        List<Distrito> distritos = distritoService.listarDistritos();
         cliente = clienteService.encontrarCliente(cliente);
         model.addAttribute("cliente", cliente);
+        model.addAttribute("distritos", distritos);
         return "actualizar";
     }
 
@@ -187,5 +192,12 @@ public class ControladorInicio {
         clienteService.eliminar(cliente);
         model.addAttribute("cliente", cliente);
         return "redirect:/clientes";
+    }
+    
+    private Integer ideCliByUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Integer ide_cli = usuarioService.findUserCodeByUsername(currentUserName);
+        return ide_cli;
     }
 }

@@ -71,12 +71,18 @@
                                                         <input type="text" name="dirCli" id="dirCli" class="form-control"
                                                                th:field="*{dirCli}" required="required" />
                                                     </div>
-
                                                     <div class="form-group">
+                                                        <label for="ideDis" class="form-control-label" >[[#{cliente.distrito}]]:</label>
+                                                        <select class="form-control" id="ideDis" name="ideDis" th:field="*{ideDis}" required="required" >
+                                                            <option value="">--Seleccione--</option>
+                                                            <option th:each="distrito : ${distritos}" th:value="${distrito.ide_dis}" th:text="${distrito.nom_dis}">Distrito 1</option>
+                                                        </select>
+                                                    </div>    
+<!--                                                    <div class="form-group">
                                                         <label for="ideDis" class="form-control-label">[[#{cliente.distrito}]]:</label>
                                                         <input type="text" name="ideDis" id="ideDis" class="form-control"
                                                                th:field="*{ideDis}" required="required" />
-                                                    </div>
+                                                    </div>-->
 
                                                     <div class="form-group">
                                                         <label for="telCli" class="form-control-label">[[#{cliente.telefono}]]:</label>

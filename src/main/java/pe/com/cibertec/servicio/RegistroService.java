@@ -4,6 +4,7 @@
  */
 package pe.com.cibertec.servicio;
 
+import java.time.Duration;
 import java.util.List;
 import pe.com.cibertec.domain.Registro;
 import pe.com.cibertec.domain.RegistroDTO;
@@ -26,5 +27,7 @@ public interface RegistroService {
     public Long obtenerIdRegistroEnProceso();
     
     public Integer obtenerUsuariosActivos();
+    
+    public Long horasTotales(Integer user_ide_cli);
     
 }

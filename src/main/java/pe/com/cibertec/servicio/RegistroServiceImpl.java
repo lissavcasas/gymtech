@@ -4,6 +4,8 @@
  */
 package pe.com.cibertec.servicio;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,27 @@ public class RegistroServiceImpl implements RegistroService {
         }
         return false;
     }
+    
+    public Duration getDuracion(String horaEntrada, String horaSalida) {
+        LocalTime entrada = LocalTime.parse(horaEntrada);
+        LocalTime salida = LocalTime.parse(horaSalida);
+        return Duration.between(entrada, salida);
+    }
+    
+@Override
+public Long horasTotales(Integer user_ide_cli) {
+    List<Registro> registros = registroDao.findAll();
+    Duration totalDuracion = Duration.ZERO;
+    for (Registro registro : registros) {
+        if (registro.getHora_salida() != null && registro.getIde_cli() == user_ide_cli) {
+            String entrada = registro.getHora_entrada();
+            String salida = registro.getHora_salida();
+            totalDuracion = totalDuracion.plus(getDuracion(entrada,salida));
+        }
+    }
+    return totalDuracion.toHours();
+}
+
 
     @Override
     public Long obtenerIdRegistroEnProceso() {
