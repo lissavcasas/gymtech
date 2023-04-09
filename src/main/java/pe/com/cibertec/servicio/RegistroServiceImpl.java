@@ -47,7 +47,11 @@ public class RegistroServiceImpl implements RegistroService {
 
     @Override
     public Registro encontrarRegistro(Long id) {
-        return registroDao.findById(id).orElse(null);
+        if (id != null) {
+            return registroDao.findById(id).orElse(null);
+        } else {
+            return null;
+        }
     }
     
     @Override

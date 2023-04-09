@@ -41,8 +41,10 @@ public class ControladorAsistencias {
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso(ideCliByUser()));
         model.addAttribute("user_ide_cli",ideCliByUser());
         Long idRegistro = obtenerIdRegistroEnProceso();
+        if (idRegistro != null) {
         Registro registroEnProceso = registroService.encontrarRegistro(idRegistro);
         model.addAttribute("ide_cli_enProceso",registroEnProceso.getIde_cli());
+        }
         return "registros/lista";
     }
 
