@@ -21,6 +21,7 @@
                     </div>
 
                     <div class="container-fluid" style="min-height: 100vh;">
+                        <h5 class="text-muted ml-2">Bienvenido</h5>
                         <div class="row">
                             <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-sm-4" style="background-color: #F0F9FF; padding: 20px; margin: 10px;">
                                 <i class="fas fa-users" style="font-size: 40px; margin-right: 10px; color: #74C1ED"></i>
@@ -29,12 +30,15 @@
                                 </div>
                                 <h2 class="text-right font-weight-bold" th:text="${countClientes}"></h2>
                             </div>
-                            <div class="col-sm-4" style="background-color: #FEFBEC; padding: 20px; margin: 10px;">
+                            <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-sm-4" style="background-color: #FEFBEC; padding: 20px; margin: 10px;">
                                 <i class="fas fa-check-circle" style="font-size: 40px; margin-right: 10px;  color: #F6C762"></i>
                                 <div class="d-flex align-items-center">
                                     <h5 class="mt-2" >Clientes en entrenamiento</h5>
                                 </div>
                                 <h2 class="text-right font-weight-bold" th:text="${countUsersActivos}">120</h2>
+                            </div>
+                            <div class="text-center m-auto">
+                                <img th:src="@{/workout.png}" alt="workout" >
                             </div>
                         </div>
                     </div>
