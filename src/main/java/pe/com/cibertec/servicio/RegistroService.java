@@ -12,7 +12,7 @@ import pe.com.cibertec.domain.RegistroDTO;
 
 public interface RegistroService {
     
-    public List<RegistroDTO> listarRegistros();
+    public List<RegistroDTO> listarRegistros(String param);
     
     public void guardarRegistro(Registro registro);
     

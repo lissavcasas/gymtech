@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,9 +38,10 @@ public class ControladorAsistencias {
     private UsuarioService usuarioService;
    
     @GetMapping("/registros")
-    public String listarRegistros(Model model) {
-        List<RegistroDTO> registros = registroService.listarRegistros();
+    public String listarRegistros(Model model,@Param("param") String param) {
+        List<RegistroDTO> registros = registroService.listarRegistros(param);
         model.addAttribute("registros", registros);
+        model.addAttribute("param",param);
         model.addAttribute("hayRegistroEnProceso", hayRegistroEnProceso());
         model.addAttribute("user_ide_cli",ideCliByUser());
         

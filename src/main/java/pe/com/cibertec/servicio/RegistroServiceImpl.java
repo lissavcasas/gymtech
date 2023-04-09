@@ -20,7 +20,10 @@ public class RegistroServiceImpl implements RegistroService {
     private RegistroDao registroDao;
 
     @Transactional(readOnly = true)
-    public List<RegistroDTO> listarRegistros() {
+    public List<RegistroDTO> listarRegistros(String param) {
+         if (param != null) {
+            return registroDao.filtrarAsistencia(param.toLowerCase());
+        }
         return registroDao.listarRegistros();
     }
 

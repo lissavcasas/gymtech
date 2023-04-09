@@ -117,7 +117,7 @@ public class ControladorInicio {
             Cliente clienteExistente = clienteService.encontrarCliente(cliente); // Recupera el objeto Cliente existente
 
             if (clienteExistente != null) { // Verifica si el objeto existe
-                log.info("****usuario existtene");
+                log.info("****usuario existente");
                 log.info("Cliente con código:" + clienteExistente.getIdeCli());
 
                 // Actualiza los campos necesarios del objeto Cliente existente
